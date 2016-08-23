@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+    {% if isAuth == true %}
+        Hello {{ user }}
+    {% else %}
+        Hello world!
+    {% endif %}
+
+    {% for posts in post %}
+        <div class="blog-post">
+            <h2 class="blog-post-title">{{ posts.title }}</h2>
+            <p class="blog-post-meta">{{ posts.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }} by <a href="">{{ posts.userId }}</a></p>
+            {{ posts.post|raw }}
+        </div>
+    {% endfor %}
+
+
+    <nav>
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+    </nav>
+
+{% endblock %}
