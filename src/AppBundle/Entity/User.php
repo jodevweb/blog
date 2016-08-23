@@ -17,9 +17,48 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     *@ORM\OneToMany(targetEntity="Post", mappedBy="userId")
+     */
+    private $post;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return User
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->post[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->post->removeElement($post);
+    }
+
+    /**
+     * Get post
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }

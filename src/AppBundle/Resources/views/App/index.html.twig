@@ -12,9 +12,9 @@
 
     {% for posts in post %}
         <div class="blog-post">
-            <h2 class="blog-post-title">{{ posts.title }}</h2>
-            <p class="blog-post-meta">{{ posts.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }} by <a href="">{{ posts.userId }}</a></p>
-            {{ posts.post|raw }}
+            <h2 class="blog-post-title"><a href="">{{ posts.title }}</a></h2>
+            <p class="blog-post-meta">{{ posts.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }} in <a href="">{{ posts.category.title }}</a> by <a href="">{{ posts.userId }}</a></p>
+            {{ posts.post|raw|truncate(300) }}
         </div>
     {% endfor %}
 
