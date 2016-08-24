@@ -43,7 +43,7 @@ class Category
     private $imageId;
 
     /**
-     *@ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="Post", inversedBy="category")
      */
     private $post;
 
@@ -134,40 +134,6 @@ class Category
     public function __construct()
     {
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add product
-     *
-     * @param \AppBundle\Entity\Post $product
-     *
-     * @return Category
-     */
-    public function addProduct(\AppBundle\Entity\Post $product)
-    {
-        $this->product[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \AppBundle\Entity\Post $product
-     */
-    public function removeProduct(\AppBundle\Entity\Post $product)
-    {
-        $this->product->removeElement($product);
-    }
-
-    /**
-     * Get product
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProduct()
-    {
-        return $this->product;
     }
 
     /**

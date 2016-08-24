@@ -22,6 +22,11 @@ class User extends BaseUser
      */
     private $post;
 
+    /**
+     *@ORM\OneToMany(targetEntity="Comments", mappedBy="user")
+     */
+    private $comments;
+
     public function __construct()
     {
         parent::__construct();
@@ -60,5 +65,39 @@ class User extends BaseUser
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comments $comment
+     *
+     * @return User
+     */
+    public function addComment(\AppBundle\Entity\Comments $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comments $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comments $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

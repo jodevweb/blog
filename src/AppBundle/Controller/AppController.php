@@ -49,7 +49,7 @@ class AppController extends Controller
         $paginator  = $this->get('knp_paginator');
 
         $category = $this->getDoctrine()->getRepository('AppBundle:Category')->find($id);
-        $posts = $this->getDoctrine()->getRepository('AppBundle:Post')->findByCategory($category);
+        $posts = $category->getPost($category);
 
         $pagination = $paginator->paginate(
             $posts,

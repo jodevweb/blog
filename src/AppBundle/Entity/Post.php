@@ -36,9 +36,14 @@ class Post
     private $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="post")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
+     */
+    private $comments;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="post")
@@ -212,5 +217,70 @@ class Post
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Post
+     */
+    public function addCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->category[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Category $category
+     */
+    public function removeCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comments $comment
+     *
+     * @return Post
+     */
+    public function addComment(\AppBundle\Entity\Comments $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comments $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comments $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
