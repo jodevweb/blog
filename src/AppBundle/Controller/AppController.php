@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Post;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Comments;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AppController extends Controller
 {
@@ -29,11 +33,40 @@ class AppController extends Controller
     }
 
 
-    public function viewpostAction($id)
+    public function viewpostAction($id, Request $request)
     {
+
+        $comments = new Comments();
+
+        $form = $this->createFormBuilder($comments)
+            ->add('comment', TextareaType::class)
+            ->add('save', SubmitType::class, array('label' => 'Comment !'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if (TRUE === $this->configuration()['isAuth'] && $this->configuration()['user']) {
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $comments->setPost($this->posts(['id' => $id]));
+                $comments->setUser($this->configuration()['user']);
+                $comments->setCreatedAt(new \DateTime("now"));
+                $comments = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comments);
+                $em->flush();
+
+                return $this->redirectToRoute('app_viewpost', ['id' => $id]);
+            }
+        } else {
+            throw new NotFoundHttpException("Login required !");
+        }
+
         return $this->render('AppBundle:App:view_post.html.twig', [
             'post' => $this->posts(['id' => $id]),
             'configuration' => $this->configuration(),
+            'form' => $form->createView(),
         ]);
     }
 

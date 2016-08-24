@@ -30,6 +30,17 @@
                 <hr />
             {% endfor %}
         {% endif %}
+
+        {% if configuration.isAuth == true %}
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_widget(form.comment, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_end(form) }}
+            {% else %}
+                Vous devez vous connecter pour commenter. <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        {% endif %}
     </div>
 
 {% endblock %}
