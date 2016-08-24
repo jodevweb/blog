@@ -97,6 +97,14 @@ class AppController extends Controller
         ]);
     }
 
+    public function viewcategoryallAction()
+    {
+        return $this->render('AppBundle:App:view_categories_all.html.twig', [
+            'categories' => $this->categories(),
+            'configuration' => $this->configuration(),
+        ]);
+    }
+
 
     public function categoryAction()
     {

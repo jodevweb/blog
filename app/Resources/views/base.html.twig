@@ -26,9 +26,7 @@
                     <nav class="blog-nav">
                         {% block navbar %}
                             <a class="blog-nav-item {% if app.request.attributes.get("_route") == "app_app_index" %}active{% endif %}" href="{{ path('app_app_index') }}">Home</a>
-                            <a class="blog-nav-item" href="#">New features</a>
-                            <a class="blog-nav-item" href="#">Press</a>
-                            <a class="blog-nav-item" href="#">New hires</a>
+                            <a class="blog-nav-item {% if app.request.attributes.get("_route") == "app_viewcategoryall" %}active{% endif %}" href="{{ path('app_viewcategoryall') }}">Categories</a>
                             <a class="blog-nav-item {% if app.request.attributes.get("_route") == "app_about" %}active{% endif %}" href="{{ path('app_about') }}">About</a>
                         {% endblock %}
                     </nav>

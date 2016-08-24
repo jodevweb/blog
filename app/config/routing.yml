@@ -17,6 +17,10 @@ app_viewcategory:
         _format:  html|rss
         id:     \d+
 
+app_viewcategoryall:
+    path:      /category/all
+    defaults:  { _controller: AppBundle:App:viewcategoryall }
+
 app_about:
     path:      /about
     defaults:  { _controller: AppBundle:App:about }

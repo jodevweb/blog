@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
+
+
+{% block content %}
+    <h2>Categories</h2>
+    <hr />
+
+    <div class="row">
+        {% for category in categories %}
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="..." alt="...">
+                    <div class="caption">
+                        <h3>{{ category.title }}</h3>
+                        <p>{{ category.description|truncate(150) }}</p>
+                        <p><a href="{{ path('app_viewcategory', {'id': category.id}) }}" class="btn btn-primary" role="button">Visit!</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block about %}{{ configuration.configuration_blog.about|truncate(140) }}{% endblock %}
