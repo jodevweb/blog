@@ -4,8 +4,10 @@
 {% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
 {% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
 
-
 {% block content %}
+
+    <h2>{{ categories.title }}</h2>
+    <hr />
 
     {% if post is not empty %}
         {% for posts in post %}
@@ -15,10 +17,9 @@
                 {{ posts.post|raw|truncate(300) }}
             </div>
         {% endfor %}
-    {% else %}
-        Aucun post.
+        {% else %}
+            Aucun post.
     {% endif %}
-
 
     {{ knp_pagination_render(post) }}
 

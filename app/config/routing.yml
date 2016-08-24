@@ -3,5 +3,23 @@ app:
     type:     annotation
     prefix:   /
 
+app_viewpost:
+    path:      /post/view/{id}.{_format}
+    defaults:  { _controller: AppBundle:App:viewpost, _format: html }
+    requirements:
+        _format:  html|rss
+        id:     \d+
+
+app_viewcategory:
+    path:      /category/view/{id}.{_format}
+    defaults:  { _controller: AppBundle:App:viewcategory, _format: html }
+    requirements:
+        _format:  html|rss
+        id:     \d+
+
+app_about:
+    path:      /about
+    defaults:  { _controller: AppBundle:App:about }
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

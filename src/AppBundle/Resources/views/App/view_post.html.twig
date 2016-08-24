@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
+
+{% block content %}
+
+    <div class="blog-post">
+        <h2 class="blog-post-title">{{ post.title }}</h2>
+        <p class="blog-post-meta">{{ post.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }} in <a href="{{ path('app_viewcategory', {'id': post.category.id}) }}">{{ post.category.title }}</a> by <strong>{% if configuration.user == post.userId %}vous{% else %}{{ post.userId }}{% endif %}</strong></p>
+        {{ post.post|raw }}
+    </div>
+
+{% endblock %}
+
+{% block about %}{{ configuration.configuration_blog.about|truncate(140) }}{% endblock %}
