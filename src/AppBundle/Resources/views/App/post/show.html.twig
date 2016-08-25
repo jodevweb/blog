@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
+
+
+{% block content %}
+    <h2>Post</h2>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ post.title }}</td>
+            </tr>
+            <tr>
+                <th>Post</th>
+                <td>{{ post.post }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if post.updatedAt %}{{ post.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('admin_post_index') }}" class="btn btn-default btn-block">Back to the list</a>
+    <a href="{{ path('admin_post_edit', { 'id': post.id }) }}" class="btn btn-primary btn-block">Edit</a>
+
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Delete" class="btn btn-danger btn-block">
+    {{ form_end(delete_form) }}
+
+{% endblock %}
+
+{% block about %}{{ configuration.configuration_blog.about|truncate(140) }}{% endblock %}

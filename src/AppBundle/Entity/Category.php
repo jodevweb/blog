@@ -36,11 +36,9 @@ class Category
     private $description;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="image_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Image", inversedBy="category")
      */
-    private $imageId;
+    private $image;
 
     /**
      * @ORM\ManyToMany(targetEntity="Post", inversedBy="category")
@@ -106,29 +104,6 @@ class Category
     }
 
     /**
-     * Set imageId
-     *
-     * @param integer $imageId
-     *
-     * @return Category
-     */
-    public function setImageId($imageId)
-    {
-        $this->imageId = $imageId;
-
-        return $this;
-    }
-
-    /**
-     * Get imageId
-     *
-     * @return int
-     */
-    public function getImageId()
-    {
-        return $this->imageId;
-    }
-    /**
      * Constructor
      */
     public function __construct()
@@ -168,5 +143,29 @@ class Category
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Category
+     */
+    public function setImage(\AppBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
