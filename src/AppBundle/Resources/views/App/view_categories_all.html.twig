@@ -13,7 +13,10 @@
         {% for category in categories %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="..." alt="...">
+                    {% if category.image is not null and category.image is not empty %}
+                        <img src="{{ asset('uploads/category/' ~ category.image) }}">
+                    {% endif %}
+
                     <div class="caption">
                         <h3>{{ category.title }}</h3>
                         <p>{{ category.description|truncate(150) }}</p>

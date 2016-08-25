@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -36,7 +37,9 @@ class Category
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Image", inversedBy="category")
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", nullable=true, length=255)
      */
     private $image;
 
@@ -145,27 +148,15 @@ class Category
         return $this->post;
     }
 
-    /**
-     * Set image
-     *
-     * @param \AppBundle\Entity\Image $image
-     *
-     * @return Category
-     */
-    public function setImage(\AppBundle\Entity\Image $image = null)
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
     {
         $this->image = $image;
 
         return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \AppBundle\Entity\Image
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 }

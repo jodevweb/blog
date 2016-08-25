@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
+
+
+{% block content %}
+    <h2>Category list</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td><a href="{{ path('admin_category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
+                <td>{{ category.title }}</td>
+                <td>{{ category.description }}</td>
+                <td>
+                    <a href="{{ path('admin_category_show', { 'id': category.id }) }}" class="btn btn-default btn-block">show</a>
+                    <a href="{{ path('admin_category_edit', { 'id': category.id }) }}" class="btn btn-primary btn-block">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_category_new') }}" class="btn btn-success btn-lg btn-block">Create a new entry</a>
+
+{% endblock %}
+
+{% block about %}{{ configuration.configuration_blog.about|truncate(140) }}{% endblock %}
