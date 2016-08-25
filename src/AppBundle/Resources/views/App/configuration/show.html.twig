@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
+
+
+{% block content %}
+    <h2>Configuration</h2>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ configurations.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ configurations.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ configurations.description }}</td>
+            </tr>
+            <tr>
+                <th>About</th>
+                <td>{{ configurations.about }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('admin_configuration_index') }}" class="btn btn-default btn-block">Back to the list</a>
+    <a href="{{ path('admin_configuration_edit', { 'id': configurations.id }) }}" class="btn btn-primary btn-block">Edit</a>
+
+    {{ form_start(delete_form) }}
+        <input type="submit" value="Delete" class="btn btn-danger btn-block">
+    {{ form_end(delete_form) }}
+
+{% endblock %}
+
+{% block about %}{{ configuration.configuration_blog.about|truncate(140) }}{% endblock %}

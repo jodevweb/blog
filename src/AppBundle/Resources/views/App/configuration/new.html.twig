@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_title %}{{ configuration.configuration_blog.name }}{% endblock %}
+{% block blog_description %}{{ configuration.configuration_blog.description }}{% endblock %}
+
+
+{% block content %}
+    <h2>Configuration creation</h2>
+
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 30}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.about) }}
+        {{ form_widget(form.about, {'attr': {'class': 'form-control', 'rows': 30}}) }}
+    </div>
+        <input type="submit" value="Create" class="btn btn-success btn-block" />
+    {{ form_end(form) }}
+
+    <a href="{{ path('admin_configuration_index') }}" class="btn btn-default btn-block">Back to the list</a>
+
+{% endblock %}
+
+{% block about %}{{ configuration.configuration_blog.about|truncate(140) }}{% endblock %}
