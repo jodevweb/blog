@@ -16,7 +16,7 @@
                     in {% for categories in posts.category %}<a href="{{ path('app_viewcategory', {'id': categories.id}) }}">{{ categories.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
                     by <strong>{% if configuration.user == posts.userId %}vous{% else %}{{ posts.userId }}{% endif %}</strong>
                 </p>
-                {{ posts.post|raw|truncate(300) }}
+                <p>{{ posts.post|truncate(300)|raw }}</p>
             </div>
         {% endfor %}
     {% else %}
