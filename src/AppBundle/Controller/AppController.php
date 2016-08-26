@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\ORM\Configuration;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Post;
@@ -33,7 +34,7 @@ class AppController extends Controller
     }
 
 
-    public function viewpostAction($id, Request $request)
+    public function viewpostAction($id, $slug, Request $request)
     {
 
         $comments = new Comments();
@@ -165,6 +166,19 @@ class AppController extends Controller
             $isRoleAdmin = false;
             $User = false;
             $isAuth = false;
+        }
+
+        $configurationBdd = $this->getDoctrine()->getRepository('AppBundle:Configuration')->find(1);
+
+        if (!$configurationBdd) {
+            $configurationInsert = new \AppBundle\Entity\Configuration();
+            $configurationInsert->setId(1);
+            $configurationInsert->setName("My Blog");
+            $configurationInsert->setDescription("my first blog");
+            $configurationInsert->setAbout("about me.");
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($configurationInsert);
+            $em->flush();
         }
 
         $configuration = ['auth_checker' => $auth_checker, 'token' => $token, 'user' => $User, 'isRoleAdmin' => $isRoleAdmin, 'isAuth' => $isAuth, 'configuration_blog' => $this->getDoctrine()->getRepository('AppBundle:Configuration')->find(1)];

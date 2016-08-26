@@ -10,13 +10,13 @@
     {% if post is not empty %}
         {% for posts in post %}
             <div class="blog-post">
-                <h2 class="blog-post-title"><a href="{{ path('app_viewpost', {'id': posts.id}) }}">{{ posts.title }}</a></h2>
+                <h2 class="blog-post-title"><a href="{{ path('app_viewpost', {'id': posts.id, 'slug': posts.slug}) }}">{{ posts.title }}</a></h2>
                 <p class="blog-post-meta">
                     {{ posts.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}
                     in {% for categories in posts.category %}<a href="{{ path('app_viewcategory', {'id': categories.id}) }}">{{ categories.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
                     by <strong>{% if configuration.user == posts.userId %}vous{% else %}{{ posts.userId }}{% endif %}</strong>
                 </p>
-                <p>{{ posts.post|truncate(300)|raw }}</p>
+                <p>{{ posts.post|truncate(300)|raw|raw }}</p>
             </div>
         {% endfor %}
     {% else %}

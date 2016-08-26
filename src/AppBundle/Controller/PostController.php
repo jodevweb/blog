@@ -108,6 +108,26 @@ class PostController extends Controller
             $post->setUpdatedAt(new \DateTime("now"));
             $post = $editForm->getData();
             $em = $this->getDoctrine()->getManager();
+
+            $category = $editForm['category']->getData();
+
+            foreach ($category as $categories) {
+
+                foreach ($post as $postCats) {
+                    foreach ($postCats->getCategory() as $getCategories) {
+
+                        if ($getCategories->getId() != $categories) {
+
+                            $categoriesList = $em->getRepository('AppBundle:Category')
+                                ->findOneById($categories->getId());
+
+                            $post->addCategory($categoriesList);
+                            $categoriesList->addPost($post);
+                        }
+                    }
+                }
+            }
+
             $em->persist($post);
             $em->flush();
 

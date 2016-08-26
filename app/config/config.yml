@@ -94,3 +94,29 @@ ivory_ck_editor:
         my_config:
             toolbar: full
             uiColor:                "#ffffff"
+            height:                 '600px'
+            filebrowserBrowseRoute:     elfinder
+            filebrowserBrowseRouteParameters:
+                instance: ckeditor
+
+fm_elfinder:
+    instances:
+        ckeditor:
+            locale:           %locale%
+            editor:           ckeditor
+            fullscreen:       false
+            include_assets:   true
+            connector:
+                debug:        false
+                roots:
+                    uploads:
+                        driver:           LocalFileSystem
+                        path:             '%kernel.root_dir%/../web/uploads/public'
+                        upload_allow:     ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/zip', 'audio/mpeg', 'text/csv', 'video/mp4', 'video/webm', 'application/pdf']
+                        upload_deny:      ['all']
+                        upload_max_size:  8M
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable:   true

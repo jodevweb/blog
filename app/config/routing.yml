@@ -4,7 +4,7 @@ app:
     prefix:   /
 
 app_viewpost:
-    path:      /post/view/{id}.{_format}
+    path:      /post/view/{id}/{slug}.{_format}
     defaults:  { _controller: AppBundle:App:viewpost, _format: html }
     requirements:
         _format:  html|rss
@@ -27,3 +27,6 @@ app_about:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"
